@@ -1,6 +1,6 @@
 var canvas = document.createElement('canvas');
-var w = window.innerWidth;
-var h = window.innerHeight;
+var w = 0.95*window.innerWidth;
+var h = 0.95*window.innerHeight;
 console.log("Script started");
 
 function test()
@@ -30,7 +30,7 @@ var ctx = canvas.getContext("2d");
 ctx.fillStyle = "rgba(255, 0, 0, 0.2)";
 ctx.rect(100,100,1000,1000);
 
-
+ctx.text("Jef",300,300);
 ctx.fillStyle = "rgba(255, 0, 0, 0.2)";
 ctx.fillRect(100, 100, 200, 200);
 ctx.fillStyle = "rgba(0, 255, 0, 0.2)";
