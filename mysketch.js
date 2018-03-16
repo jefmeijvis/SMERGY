@@ -1,4 +1,6 @@
 var canvas = document.createElement('canvas');
+var w = window.innerWidth;
+var h = window.innerHeight;
 console.log("Script started");
 
 function test()
@@ -7,12 +9,10 @@ console.log("Test");
 }
 
 canvas.id = "CursorLayer";
-canvas.width = 1224;
-canvas.height = 768;
+canvas.width = w;
+canvas.height = h;
 canvas.style.zIndex = 8;
 canvas.style.position = "absolute";
-canvas.style.border = "1px solid";
-
 
 var body = document.getElementsByTagName("body")[0];
 body.appendChild(canvas);
