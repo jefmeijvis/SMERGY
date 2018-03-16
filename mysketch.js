@@ -23,7 +23,14 @@ console.log(cursorLayer);
 
 // below is optional
 
+
+
 var ctx = canvas.getContext("2d");
+
+ctx.fillStyle = "rgba(255, 0, 0, 1.0)";
+ctx.rect(0,0,w,h);
+
+
 ctx.fillStyle = "rgba(255, 0, 0, 0.2)";
 ctx.fillRect(100, 100, 200, 200);
 ctx.fillStyle = "rgba(0, 255, 0, 0.2)";
