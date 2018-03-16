@@ -1,7 +1,7 @@
 var canvas = document.createElement('canvas');
 var w = 0.95*window.innerWidth;
 var h = 0.95*window.innerHeight;
-console.log("Script started");
+console.log("Script started V10");
 
 function test()
 {
