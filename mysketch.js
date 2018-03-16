@@ -1,4 +1,5 @@
 var canvas = document.createElement('canvas');
+onsole.log("Script started");
 
 canvas.id = "CursorLayer";
 canvas.width = 1224;
