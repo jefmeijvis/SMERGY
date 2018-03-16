@@ -1,54 +1,26 @@
-var button;
-var running = true;
-var value;
+var canvas = document.createElement('canvas');
 
-function setup() {
-	createCanvas(windowWidth, windowHeight);
-	background(0);
-	sliderSize = createSlider(50, 255, 100);
-	sliderSize.position(20, 40);
-	sliderSize.style('width', '80px');
-	noStroke();
-	colorMode(HSB,360);
-	button = createButton('START/STOP');
-	button.position(20,100);
-	button.mousePressed(switchOnOff);
-}
+canvas.id = "CursorLayer";
+canvas.width = 1224;
+canvas.height = 768;
+canvas.style.zIndex = 8;
+canvas.style.position = "absolute";
+canvas.style.border = "1px solid";
 
-function switchOnOff()
-{
-	running = !running;
-}
 
-function draw() {
-	background('#457b9d');
-	fill('#1d3557');
-	rect(0,0,150,windowHeight);
-	fill(360);
-	textSize(20);
-	textAlign(LEFT);
-	text("Scale",20,30);
-	drawMeter();
-}
+var body = document.getElementsByTagName("body")[0];
+body.appendChild(canvas);
 
-function drawMeter()
-{
-	if (running) value = 100*(1+sin(frameCount/30.0));
+cursorLayer = document.getElementById("CursorLayer");
 
-	textAlign(CENTER);
-  var scale = 1.3*sliderSize.value();
-	fill(360);
-	textSize(scale/3);
-	text(round(value) + "W", windowWidth / 2, windowHeight / 2+100);
-	var i = 0;
-	for (i = 0 ; i < value ; i++)
-	{
-		ellipse(windowWidth/2+scale*-1*sin(PI/2+PI/2*i/100),windowHeight/2+100+scale*cos(PI/2+PI/2*i/100),scale/3,scale/3);
-	}
+console.log(cursorLayer);
 
-	for (i = 0 ; i < value ; i++)
-	{
-		fill(180-i,360,360);
-		ellipse(windowWidth/2+scale*-1*sin(PI/2+PI/2*i/100),windowHeight/2+100+scale*cos(PI/2+PI/2*i/100),scale/4,scale/4);
-	}
-}
+// below is optional
+
+var ctx = canvas.getContext("2d");
+ctx.fillStyle = "rgba(255, 0, 0, 0.2)";
+ctx.fillRect(100, 100, 200, 200);
+ctx.fillStyle = "rgba(0, 255, 0, 0.2)";
+ctx.fillRect(150, 150, 200, 200);
+ctx.fillStyle = "rgba(0, 0, 255, 0.2)";
+ctx.fillRect(200, 50, 200, 200);
