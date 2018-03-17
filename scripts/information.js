@@ -1,5 +1,6 @@
 function drawInfo()
 {
+  textAlign(CENTER);
   fill('#1d3557');
   rect(0,0,w,70);
   fill(360);
