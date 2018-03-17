@@ -3,7 +3,7 @@ var h = 0.97*window.innerHeight;
 var config; // firebase configuration
 var globalFont; // main font
 var globalCounter = 0;
-var intro = false;
+var intro = true;
 var measurement = 0;
 var graph = [];
 
