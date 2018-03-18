@@ -79,5 +79,5 @@ function switchDisplayGraph()
 function switchDisplayBoth()
 {
   display = 2;
-  messageList.push("Showing Both");
+  //messageList.push("Showing both");
 }
