@@ -8,23 +8,25 @@ var graph = [];
 var live = false;
 var valueref;
 var myRandomSeed;
+var logoCore;
+var img;
+var loaded = false;
 
 function setup()
 {
 	firebaseInit();
 	initGUI();
-	preload();
-	createCanvas(w, h);
+	createCanvas(w, h,P2D);
 	noStroke();
 	colorMode(HSB,360);
-	frameRate(60);
+	frameRate(30);
 	updateDatabase();
 	myRandomSeed = random(10000);
 }
 
 function draw()
 {
-	background('#457b9d');
+	background('#e9e9e9');
 	if (!live){measurement = getNoise(0);}
 	if (intro)
 	{
@@ -36,7 +38,6 @@ function draw()
 		drawContent();
 	}
 	drawGUI();
-	drawPopupMessages();
 }
 
 function updateDatabase()

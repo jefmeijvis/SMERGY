@@ -8,10 +8,8 @@ function drawPopupMessages()
   textAlign(CENTER);
   var messageHeight = 50;
   var messageLength = 500;
-    textSize(32);
-    colorMode(RGB,255);
-    fill(29,53,87,mAlpha);
-    colorMode(HSB,360);
+    textSize(32);;
+    fill('#99cc677');
     rect(w/2-messageLength/2,100+messageHeight,messageLength, messageHeight, 20);
     fill(360,mAlpha);
     text(message,w/2,100+messageHeight+10+messageHeight/2);
