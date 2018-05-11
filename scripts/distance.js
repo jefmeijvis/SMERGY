@@ -1,57 +1,49 @@
-var redDist = 0;
-var blueDist = 0;
-var MAXDIST = 10000;
+var distanceOne = 0;
+var distanceTwo = 0;
+var MAXDIST = 200;
 var racing = true;
 var victoryMessage = "The race has started";
 var m,s,mm; // timing vars
 var referenceTime = 0;
-var name1 = "Name one";
-var name2 = "Name two";
+var nameOne = "Name one";
+var nameTwo = "Name two";
+var colourOne,colourTwo;
+var speedOne = 0;
+var speedTwo = 0;
 
 
 function drawDistance(x)
 {
-  if (racing) // update values
-  {
-    var redSpeed = round(getNoise(9999)/7);
-    var blueSpeed = round(getNoise(0)/7);
-    redDist += redSpeed;
-    blueDist += blueSpeed;
-  }
-
+    updateDatabase();
 
   // draw bike 1
   drawMeterLayout(x-w/4);
-  drawTitleBar("Blue bike : " + name1,x-w/4);
-  drawKMPH(x-w/4,h/2-50,0);
-  drawMeter(blueSpeed*5,x-w/4-150,h/2+100,100);
-  fill(360);
-  text(round(blueSpeed)+ "W",x-w/4-150,h/2+100)
-  drawIcon(x-w/4+150,h/2+100,blueSpeed);
+  drawTitleBar(colourOne + " bike : " + nameOne,x-w/4);
+  drawKMPH(x-w/4,h/2-50,speedOne);
+  drawMeter(speedTwo*5,x-w/4-150,h/2+100,100);
+  drawIcon(x-w/4+150,h/2+100,speedTwo);
 
   // draw bike 2
   drawMeterLayout(x+w/4);
-  drawTitleBar("Red bike : "+name2,x+w/4);
-  drawKMPH(x+w/4,h/2-50,9999);
-  drawMeter(redSpeed*5,x+w/4-150,h/2+100,100);
-  fill(360);
-  text(round(redSpeed)+ "W",x+w/4-150,h/2+100);
-  drawIcon(x+w/4+150,h/2+100,redSpeed);
+  drawTitleBar(colourTwo + " bike : "+nameTwo,x+w/4);
+  drawKMPH(x+w/4,h/2-50,speedTwo);
+  drawMeter(speedOne*5,x+w/4-150,h/2+100,100);
+  drawIcon(x+w/4+150,h/2+100,speedOne);
 
 
   drawComparrison();
   drawVictoryMessage();
 
-  if (redDist > MAXDIST)
+  if (distanceOne > MAXDIST)
   {
-    redDist = MAXDIST;
+    distanceOne = MAXDIST;
     racing = false;
     victoryMessage = name1 + " won!";
   }
 
-  if (blueDist > MAXDIST)
+  if (distanceTwo > MAXDIST)
   {
-    blueDist = MAXDIST;
+    distanceTwo = MAXDIST;
     racing = false;
     victoryMessage = name2 + " won!";
   }
@@ -59,13 +51,13 @@ function drawDistance(x)
   drawTimer();
 }
 
-function drawKMPH(x,y,offset)
+function drawKMPH(x,y,speed)
 {
     fill(360);
     textAlign(CENTER);
     textSize(52);
     if (racing)
-    text(round(getNoise(offset)/7) + " Km/u",x,y);
+    text(speed + " Km/u",x,y);
     else {
       text("0 Km/u",x,y);
     }
@@ -77,17 +69,26 @@ function drawComparrison()
   fill('#99cc67');
   rect(w/4-265,h-160,(w-2*(w/4-265)),120);
 
-  fill('#e63946');
-  rect(w/4-255,h-100,(w-2*(w/4-255))*(redDist/MAXDIST),50);
+  if (colourTwo == 'Red') fill('#e63946');
+  if (colourTwo == 'White') fill(360);
+  if (colourTwo == 'Blue') fill('#5480e5');
+  rect(w/4-255,h-100,(w-2*(w/4-255))*(distanceTwo/MAXDIST),50);
+  if (colourTwo == 'White')
+  fill(0);
+  else
   fill(360);
-  //if (redDist > 1000)
-  text(round(redDist/10)+ "m",w/4-255+70,h-60)
+  text(round(distanceTwo)+ "m",w/4-255+70,h-60)
 
-  fill('#5480e5');
-  rect(w/4-255,h-150,(w-2*(w/4-255))*(blueDist/MAXDIST),50);
+
+  if (colourOne == 'Red') fill('#e63946');
+  if (colourOne == 'White') fill(360);
+  if (colourOne == 'Blue') fill('#5480e5');
+  rect(w/4-255,h-150,(w-2*(w/4-255))*(distanceOne/MAXDIST),50);
+  if (colourOne == 'White')
+  fill(0);
+  else
   fill(360);
-  //if (blueDist > 1000)
-  text(round(blueDist/10)+ "m",w/4-255+70,h-110)
+  text(round(distanceOne)+ "m",w/4-255+70,h-110)
 }
 
 function drawVictoryMessage()
@@ -100,8 +101,8 @@ function drawVictoryMessage()
 
 function resetDistance()
 {
-  redDist = 0;
-  blueDist = 0;
+  distanceOne = 0;
+  distanceTwo = 0;
   racing = true;
   victoryMessage = "The race has started";
   referenceTime = millis();
@@ -161,11 +162,45 @@ function drawTitleBar(s,x)
   text(s,x -295,2*h/3+10-258);
 }
 
-function drawIcon(x,y,speed)
+function drawIcon(x,y,speed) // calculate the correct icon and draw it
 {
   textSize(18);
-  text("Generating enough power for ",x,y-100);
+  text("Generating enough power for a",x,y-100);
   textSize(26);
-  text("a fridge",x,y-75);
-  image(img,x-25,y-75,50,100);
+
+  if (speed > 30)
+  {
+    text("fridge",x,y-75);
+    image(logoCore,x-25,y-75,50,100);
+  }
+  else {
+    text("mobile phone",x,y-75);
+    image(logoCore,x-25,y-75,50,100);
+  }
+}
+
+function updateDatabase() // update all live values from the database
+{
+  if (frameCount % 5 == 0) // 6 times each second
+  {
+            distanceTwo = getFromDatabase('LiveFeed/distanceTwo');
+            distanceOne = getFromDatabase('LiveFeed/distanceOne');
+            speedOne = getFromDatabase('LiveFeed/speedOne');
+            speedTwo = getFromDatabase('LiveFeed/speedTwo');
+
+            nameOne = getFromDatabase('UserData/nameOne');
+            nameTwo = getFromDatabase('UserData/nameTwo');
+            colourOne = getFromDatabase('UserData/colourOne');
+            colourTwo = getFromDatabase('UserData/colourTwo');
+  }
+}
+
+function getFromDatabase(reference) // return the data stored at a given database node
+{
+  var result
+  var valueref = firebase.database().ref(reference);
+  valueref.on('value', function(snapshot) {
+    result = snapshot.val();
+    });
+    return result;
 }

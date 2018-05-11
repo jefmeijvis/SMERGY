@@ -6,18 +6,9 @@ function preload()
 {
   var startTime = millis();
   console.log("[INFO] Starting preload...");
-  loadImage
-  (
-      "https://i.imgur.com/b85KxJ7.png", // loading the core logo, hosted at
-       function(i) {
-                    loaded = true;
-                    img = i;
-                    },
-       function(e) {
-                    console.log(e);
-                   }
-  )
+  logoCore = loadImage("https://i.imgur.com/b85KxJ7.png");
+  icons[1] = loadImage("https://i.imgur.com/dLEkCDH.png");
   var endTime = millis();
   var ellapsedTime = endTime - startTime;
-  console.log("[INFO] Preload finished after " + ellapsedTime + " milliseconds");
+  console.log("[INFO] Preload finished after " + round(ellapsedTime*1000)/1000 + " milliseconds. Ready to start showing the website!");
 }

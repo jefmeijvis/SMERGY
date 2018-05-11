@@ -8,9 +8,5 @@ function drawInfo()
   text("The Smergy Project",w/2,35);
   textSize(16);
   text("Webview",w/2,60);
-  //image(logoCore,0,0,100,100);
-
-  if (loaded) {
-    image(img, width-img.width/15, 5,img.width/15,img.height/15);
-  }
+  image(logoCore, width-logoCore.width/15, 5,logoCore.width/15,logoCore.height/15);
 }

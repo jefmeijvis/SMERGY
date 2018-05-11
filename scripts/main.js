@@ -2,15 +2,14 @@ var w = 0.97*window.innerWidth;
 var h = 0.97*window.innerHeight;
 var config; // firebase configuration
 var globalCounter = 0;
-var intro = false;
+var intro = true;
 var measurement = 0;
 var graph = [];
-var live = false;
+var icons = [];
+var live = true;
 var valueref;
 var myRandomSeed;
 var logoCore;
-var img;
-var loaded = false;
 
 function setup()
 {
@@ -40,16 +39,7 @@ function draw()
 	drawGUI();
 }
 
-function updateDatabase()
-{
-	if (live)
-	{
-		valueref = firebase.database().ref('LIVE');
-		valueref.on('value', function(snapshot) {
-			measurement = snapshot.val();
-			});
-	}
-}
+
 
 function getNoise(offset)
 {
@@ -67,9 +57,6 @@ function getNoise(offset)
 
 function drawContent()
 {
-	drawInfo(); // the top bar and title is always drawn
-	if (display == 0){drawEnergyMeter(w/2);}
-	if (display == 1){drawGraph(w/2);}
-	if (display == 2){drawGraph(3*w/4); drawEnergyMeter(w/4);}
-	if (display == 3){drawDistance(w/2);}
+	drawInfo();
+  drawDistance(w/2);
 }

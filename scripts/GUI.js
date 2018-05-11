@@ -3,7 +3,6 @@
 // drawn at the top of the screen.
 
 var buttons = [];
-var display = 3;
 
 function initGUI()
 {
@@ -18,7 +17,6 @@ function drawGUI()
   {
       fill('#d1f7ab');
       textSize(22);
-      //ellipse(i*100+50,20,30,30);
       rect(i*100+50-40,10,80,50);
       fill('#3e6e0e');
       text(buttons[i],i*100+50,40);
