@@ -2,21 +2,35 @@ var heightOffset = 0;
 
 function drawIntro()
 {
-  globalCounter++;
+  imageMode(CENTER);
+  fill(360);
+  textAlign(CENTER,CENTER);
+  textSize(48);
+  var message = "Webview\nF11 to enter fullscreen mode\nMake sure the app has internet acces"
+  text(message,width/2,height/6);
+  image(logoCore,width/2,height/2+100,logoCore.width/2,logoCore.height/2);
+  var timer = frameCount*5
+  rectMode(CENTER);
+  noStroke();
+  fill(360);
+  rect(width/2,height/3,logoCore.width/2-150,-50);
+  fill('#99cc67');
+  rect(width/2,height/3,timer,-40);
 
-  textSize(72);
-  textAlign(CENTER);
+  rectMode(CORNER);
 
-  fill(360,(3*globalCounter));
-  text("Welcome to the Smergy webview",w/2,heightOffset+h/2-150);
-  fill(360,(3*globalCounter)-300);
-  textSize(40);
-  text("Please make sure the mobile application has internet acces",w/2,heightOffset+h/2);
-  fill(360,(3*globalCounter)-600);
-  text("Press F11 to enter fullscreen mode",w/2,heightOffset+h/2+50);
-  fill(360,(3*globalCounter)-900);
-  text("Let's get started",w/2,heightOffset+h/2+100);
+  if (timer >= logoCore.width/2-160)
+  {
+    intro = false;
+  }
+}
 
-  if (globalCounter > 333) {heightOffset -= (abs(heightOffset)+1)/13;}
-  if (globalCounter > 433) {intro = false;}
+function keyPressed()
+{
+  if (intro && frameCount > 10) intro = false;
+}
+
+function mouseClicked()
+{
+    if (intro && frameCount > 10) intro = false;
 }

@@ -20,15 +20,16 @@ function drawDistance(x)
   drawMeterLayout(x-w/4);
   drawTitleBar(colourOne + " bike : " + nameOne,x-w/4);
   drawKMPH(x-w/4,h/2-50,speedOne);
-  drawMeter(speedTwo*5,x-w/4-150,h/2+100,100);
-  drawIcon(x-w/4+150,h/2+100,speedTwo);
+
+  drawMeter(getPowerFromSpeed(speedOne),x-w/4-150,h/2+100,100,getHueFromColour(colourOne));
+  drawIcon(x-w/4+150,h/2+100,speedOne);
 
   // draw bike 2
   drawMeterLayout(x+w/4);
   drawTitleBar(colourTwo + " bike : "+nameTwo,x+w/4);
   drawKMPH(x+w/4,h/2-50,speedTwo);
-  drawMeter(speedOne*5,x+w/4-150,h/2+100,100);
-  drawIcon(x+w/4+150,h/2+100,speedOne);
+  drawMeter(getPowerFromSpeed(speedTwo),x+w/4-150,h/2+100,100,getHueFromColour(colourTwo));
+  drawIcon(x+w/4+150,h/2+100,speedTwo);
 
 
   drawComparrison();
@@ -167,16 +168,12 @@ function drawIcon(x,y,speed) // calculate the correct icon and draw it
   textSize(18);
   text("Generating enough power for a",x,y-100);
   textSize(26);
-
-  if (speed > 30)
-  {
-    text("fridge",x,y-75);
-    image(logoCore,x-25,y-75,50,100);
-  }
-  else {
-    text("mobile phone",x,y-75);
-    image(logoCore,x-25,y-75,50,100);
-  }
+  var power = getPowerFromSpeed(speed);
+  text(getNameFromSpeed(power),x,y-75);
+  icon = getIcon(power);
+  //console.log(icon);
+  imageMode(CENTER);
+  image(icon,x,y-20,icon.width/(icon.width/80),icon.height/(icon.height/80));
 }
 
 function updateDatabase() // update all live values from the database
