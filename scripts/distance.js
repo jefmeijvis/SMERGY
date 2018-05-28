@@ -16,7 +16,7 @@ var timeTwo;
 
 function drawDistance(x)
 {
-  updateDatabase();
+  updateDatabase(); // keep the rider data live and synchronised
   // draw bike 1
   drawMeterLayout(x-w/4);
   drawTitleBar(colourOne + " bike : " + nameOne,x-w/4);
@@ -33,8 +33,8 @@ function drawDistance(x)
   drawIcon(x+w/4+150,h/2+100,speedTwo);
 
 
-  drawComparrison();
-  drawVictoryMessage();
+  drawComparrison(); // draw the bars comparing the distances
+  drawVictoryMessage(); // if someone won
 
   if (distanceOne > MAXDIST)
   {
@@ -51,7 +51,7 @@ function drawDistance(x)
   }
 }
 
-function drawKMPH(x,y,speed,time)
+function drawKMPH(x,y,speed,time) // draw the time and speed
 {
     fill(360);
     textAlign(CENTER);
@@ -67,7 +67,7 @@ function drawKMPH(x,y,speed,time)
     }
 }
 
-function drawComparrison()
+function drawComparrison() // draw the bars indicating the distance
 {
   textSize(40);
   fill('#99cc67');
@@ -95,7 +95,7 @@ function drawComparrison()
   text(round(distanceOne)+ "m",w/4-255+70,h-110)
 }
 
-function drawVictoryMessage()
+function drawVictoryMessage() // draw a message indicating if someone won the race
 {
   fill(0);
   fill('#3e6e0e');
@@ -103,7 +103,7 @@ function drawVictoryMessage()
   text(victoryMessage,w/2,150);
 }
 
-function resetDistance()
+function resetDistance() // reset all the variables back to zero
 {
   distanceOne = 0;
   distanceTwo = 0;
@@ -114,13 +114,13 @@ function resetDistance()
 
 
 
-function drawMeterLayout(x)
+function drawMeterLayout(x) // draw the background rectangle of the meter
 {
   fill('#99cc67');
   rect(x-300,2*h/3+10,600,-250)
 }
 
-function drawTitleBar(s,x)
+function drawTitleBar(s,x) // draw the title bar of the meter, including a title
 {
   textSize(22);
   fill('#3e6e0e');
@@ -143,7 +143,7 @@ function drawIcon(x,y,speed) // calculate the correct icon and draw it
   image(icon,x,y-20,icon.width/(icon.width/80),icon.height/(icon.height/80));
 }
 
-function getTimeStringFromMillis(m)
+function getTimeStringFromMillis(m) // convert from millis to a drawable string indicating time
 {
   var t = m;
   var dm,ds,dmm;
@@ -194,7 +194,7 @@ function updateDatabase() // update all live values from the database
             colourTwo = getFromDatabase('UserData/colourTwo');
 }
 
-function updateRacingMode()
+function updateRacingMode() // change the racing mode in the database
 {
            racingMode = getFromDatabase('UserData/RacingMode');
 }

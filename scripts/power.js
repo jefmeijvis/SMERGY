@@ -1,3 +1,5 @@
+//  Calculate which icon and which string fits
+//  the current power output
 function getIcon(speed)
 {
   var icon;

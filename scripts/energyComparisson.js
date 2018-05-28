@@ -1,4 +1,4 @@
-function drawEnergyComparisson()
+function drawEnergyComparisson() // main loop for drawing the energy comparisson
 {
   textSize(32);
   if (!downloadedDataOnce)
@@ -8,18 +8,19 @@ function drawEnergyComparisson()
     console.log("[INFO] Making sure the data is up to date so we can draw the energy comparisson!");
   }
 
-  drawComp(1);
-  drawComp(2);
+  drawComp(1); // draw the comparisson of player one
+  drawComp(2); // draw the comparisson of player two
 }
 
 function drawComp(player)
 {
+  // these constants are used to calculate the power.
     var alpha = 0.007315;
     var beta = 0.01490;
     var g = 9.81;
     var mass = 60.45;
 
-
+  // decide the x-coordinate of the window
   textAlign(LEFT);
   var x = w/2;
   if (player == 1)
@@ -31,17 +32,19 @@ function drawComp(player)
     x = 3*x/2;
   }
 
+  // draw the white background rectangle
   fill(360);
   rect(x,140,300,400);
   rect(x,140,-300,400);
 
+  // draw the top bar
   fill('#99cc67');
   rect(x,140,300,-30);
   rect(x,140,-300,-30);
 
 
 
-  if (player == 1)
+  if (player == 1) // player one calculations
   {
     var avgSpeed =  round(3.6 * 200/(timeOne/1000));
     var avgPower = (alpha*mass*g+beta*Math.pow(avgSpeed/3.6,2))*avgSpeed/3.6;
@@ -56,7 +59,7 @@ function drawComp(player)
     icon = getIcon(speedOne);
     image(icon,x,490,icon.width/(icon.width/80),icon.height/(icon.height/80));
   }
-  if (player == 2)
+  if (player == 2) // player two calculations
   {
     var avgSpeed =  round(3.6 * 200/(timeOne/1000));
     var avgPower = (alpha*mass*g+beta*Math.pow(avgSpeed/3.6,2))*avgSpeed/3.6;

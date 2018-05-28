@@ -16,7 +16,7 @@ var sorted = false;
 var finished = false;
 var downloadedDataOnce = false;
 
-function setup()
+function setup() // setup to init everything
 {
 	firebaseInit();
 	var drawingCanvas = createCanvas(w,h);
@@ -27,38 +27,40 @@ function setup()
 	updateDatabase();
 }
 
-function windowResized() {
+function windowResized() // allow the window to be resized
+{
   resizeCanvas(windowWidth, windowHeight);
 }
 
-function draw()
+function draw() // main draw loop, all logic happens in this method
 {
 	updateRacingMode();
 	if (intro)
 	{
-		background('#99cc67');
+		background('#99cc67');// green
 		drawIntro();					// draw the intro splash screen
 	}
 	else
 	{
-		background('#e9e9e9');
+		background('#e9e9e9'); // gray-white-ish color
 
-		if (racingMode == 0)
+		if (racingMode == 0) // if looking at the highscore
 		 {
 				drawScoreBoard();
 				downloadedDataOnce = false;
 		 }
 
-		if (racingMode == 1)
+		if (racingMode == 1) // if racing
 		{
-		  drawDistance(w/2);    // draw the main content of the webpage
+		  drawDistance(w/2);
 			downloadedScoreboard = false;
 			downloadedDataOnce = false;
 	  }
-		 if (racingMode == 2)
+		 if (racingMode == 2) // if looking at the energy comparison
 			{
 				drawEnergyComparisson();
 			}
-			drawInfo();					  	// draw the top bar with name and logo
+
+			drawInfo();					  	// draw the top bar with name and logo, this always happens
 	}
 }

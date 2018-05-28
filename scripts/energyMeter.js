@@ -4,7 +4,6 @@ function drawEnergyMeter(x)
   drawTitleBar("Power meter",x)
   var scale = 150;
   drawMeter(4*measurement/5,x,2*h/3,scale);
-  // draw the text
   fill(360);
   textSize(scale/3);
   textAlign(CENTER);
@@ -13,18 +12,18 @@ function drawEnergyMeter(x)
 
 
 
-function drawMeter(value,x,y,scale,hue)
+function drawMeter(value,x,y,scale,hue) // draw the meter gauge
 {
   var meterLength = 300;
   if (value > 0)
   {
-  for (var i = 0 ; i < value ; i++)
+  for (var i = 0 ; i < value ; i++) // this loop draws a white background bar
   {
     fill(360);
     ellipse(x-scale*sin(PI/2+PI*i/meterLength),y+scale*cos(PI/2+PI*i/meterLength),scale/3,scale/3)
   }
 
-  for (var i = 0 ; i < value ; i++)
+  for (var i = 0 ; i < value ; i++) // this loops draw a coloured smaller bar over the white one
   {
     if (hue == 33) {
       fill(360-i);
@@ -43,12 +42,11 @@ else {
 }
 }
 
-function getHueFromColour(colour)
+function getHueFromColour(colour) // select the right color to draw
 {
   var hue;
   if (colour == 'White') hue = 33;
   if (colour == 'Red') hue = 10;
   if (colour == 'Blue') hue = 210;
-  //console.log("selecting hue from colour " + colour + "and chose " + hue);
   return hue;
 }
