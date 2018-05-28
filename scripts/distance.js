@@ -10,16 +10,17 @@ var nameTwo = "Name two";
 var colourOne,colourTwo;
 var speedOne = 0;
 var speedTwo = 0;
+var timeOne;
+var timeTwo;
 
 
 function drawDistance(x)
 {
-    updateDatabase();
-
+  updateDatabase();
   // draw bike 1
   drawMeterLayout(x-w/4);
   drawTitleBar(colourOne + " bike : " + nameOne,x-w/4);
-  drawKMPH(x-w/4,h/2-50,speedOne);
+  drawKMPH(x-w/4,h/2-50,speedOne,timeOne);
 
   drawMeter(getPowerFromSpeed(speedOne),x-w/4-150,h/2+100,100,getHueFromColour(colourOne));
   drawIcon(x-w/4+150,h/2+100,speedOne);
@@ -27,7 +28,7 @@ function drawDistance(x)
   // draw bike 2
   drawMeterLayout(x+w/4);
   drawTitleBar(colourTwo + " bike : "+nameTwo,x+w/4);
-  drawKMPH(x+w/4,h/2-50,speedTwo);
+  drawKMPH(x+w/4,h/2-50,speedTwo,timeTwo);
   drawMeter(getPowerFromSpeed(speedTwo),x+w/4-150,h/2+100,100,getHueFromColour(colourTwo));
   drawIcon(x+w/4+150,h/2+100,speedTwo);
 
@@ -48,19 +49,21 @@ function drawDistance(x)
     racing = false;
     victoryMessage = name2 + " won!";
   }
-
-  drawTimer();
 }
 
-function drawKMPH(x,y,speed)
+function drawKMPH(x,y,speed,time)
 {
     fill(360);
     textAlign(CENTER);
     textSize(52);
     if (racing)
-    text(speed + " Km/u",x,y);
+    {
+    text(speed + " Km/u",x-150,y);
+    text(getTimeStringFromMillis(time),x+150,y);
+  }
     else {
-      text("0 Km/u",x,y);
+      text("0 Km/u",x-150,y);
+      text("00:00:00" ,x+150,y);
     }
 }
 
@@ -109,42 +112,6 @@ function resetDistance()
   referenceTime = millis();
 }
 
-function drawTimer()
-{
-  var t = millis() - referenceTime;
-  var dm,ds,dmm;
-  if (racing)
-  {
-    m = floor(t)%1000;
-    s = floor(((round(t) - m)/1000)%60);
-    mm = floor(((round(t) - m)/1000)/60);
-  }
-
-  dm = m;
-  ds = s;
-  dmm = mm;
-
-  if (mm < 10)
-  {
-    dmm = "0" + mm;
-  }
-
-  if (s < 10)
-  {
-    ds = "0" + s;
-  }
-
-  if (m < 100)
-  {
-    dm = "0" + m;
-  }
-  if (m < 10)
-  {
-    dm = "00" + m;
-  }
-  textSize(38);
-  text(dmm + ":" +ds + ":" + dm,w/2,h-175);
-}
 
 
 function drawMeterLayout(x)
@@ -176,20 +143,60 @@ function drawIcon(x,y,speed) // calculate the correct icon and draw it
   image(icon,x,y-20,icon.width/(icon.width/80),icon.height/(icon.height/80));
 }
 
+function getTimeStringFromMillis(m)
+{
+  var t = m;
+  var dm,ds,dmm;
+
+  m = floor(t)%1000;
+  s = floor(((round(t) - m)/1000)%60);
+  mm = floor(((round(t) - m)/1000)/60);
+
+
+  dm = m;
+  ds = s;
+  dmm = mm;
+
+  if (mm < 10)
+  {
+    dmm = "0" + mm;
+  }
+
+  if (s < 10)
+  {
+    ds = "0" + s;
+  }
+
+  if (m < 100)
+  {
+    dm = "0" + m;
+  }
+  if (m < 10)
+  {
+    dm = "00" + m;
+  }
+  var result = dmm + ":" +ds + ":" + dm;
+  return result;
+}
+
 function updateDatabase() // update all live values from the database
 {
-  if (frameCount % 5 == 0) // 6 times each second
-  {
             distanceTwo = getFromDatabase('LiveFeed/distanceTwo');
             distanceOne = getFromDatabase('LiveFeed/distanceOne');
             speedOne = getFromDatabase('LiveFeed/speedOne');
             speedTwo = getFromDatabase('LiveFeed/speedTwo');
+            timeOne = getFromDatabase('LiveFeed/timeOne');
+            timeTwo = getFromDatabase('LiveFeed/timeTwo');
 
             nameOne = getFromDatabase('UserData/nameOne');
             nameTwo = getFromDatabase('UserData/nameTwo');
             colourOne = getFromDatabase('UserData/colourOne');
             colourTwo = getFromDatabase('UserData/colourTwo');
-  }
+}
+
+function updateRacingMode()
+{
+           racingMode = getFromDatabase('UserData/RacingMode');
 }
 
 function getFromDatabase(reference) // return the data stored at a given database node
