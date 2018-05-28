@@ -44,7 +44,7 @@ function drawComp(player)
   if (player == 1)
   {
     var avgSpeed =  round(3.6 * 200/(timeOne/1000));
-    var avgPower = (alpha*mass*g+beta*(avgSpeed,2))*avgSpeed/3.6;
+    var avgPower = (alpha*mass*g+beta*Math.pow(avgSpeed/3.6,2))*avgSpeed/3.6;
 
     text("Name: " + nameOne,x-280,180);
     text("Time: " + getTimeStringFromMillis(timeOne),x-280,220);
@@ -58,8 +58,8 @@ function drawComp(player)
   }
   if (player == 2)
   {
-    var avgSpeed =  round(3.6 * 200/(timeTwo/1000));
-    var avgPower = (alpha*mass*g+beta*(avgSpeed,2))*avgSpeed/3.6;
+    var avgSpeed =  round(3.6 * 200/(timeOne/1000));
+    var avgPower = (alpha*mass*g+beta*Math.pow(avgSpeed/3.6,2))*avgSpeed/3.6;
 
     text("Name: " + nameTwo,x-280,180);
     text("Time: " + getTimeStringFromMillis(timeTwo),x-280,220);
