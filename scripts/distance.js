@@ -1,6 +1,6 @@
 var distanceOne = 0;
 var distanceTwo = 0;
-var MAXDIST = 200;
+var MAXDIST = 1000;
 var racing = true;
 var victoryMessage = "The race has started";
 var m,s,mm; // timing vars
@@ -13,10 +13,10 @@ var speedTwo = 0;
 var timeOne;
 var timeTwo;
 
-
 function drawDistance(x)
 {
   updateDatabase(); // keep the rider data live and synchronised
+  //useTestValues();
   // draw bike 1
   drawMeterLayout(x-w/4);
   drawTitleBar(colourOne + " bike : " + nameOne,x-w/4);
@@ -181,10 +181,10 @@ function getTimeStringFromMillis(m) // convert from millis to a drawable string 
 
 function updateDatabase() // update all live values from the database
 {
-            distanceTwo = getFromDatabase('LiveFeed/distanceTwo');
-            distanceOne = getFromDatabase('LiveFeed/distanceOne');
-            speedOne = getFromDatabase('LiveFeed/speedOne');
-            speedTwo = getFromDatabase('LiveFeed/speedTwo');
+            distanceTwo = getFromDatabase('LiveFeed/DistanceTwo');
+            distanceOne = getFromDatabase('LiveFeed/DistanceOne');
+            speedOne = getFromDatabase('LiveFeed/SpeedOne');
+            speedTwo = getFromDatabase('LiveFeed/SpeedTwo');
             timeOne = getFromDatabase('LiveFeed/timeOne');
             timeTwo = getFromDatabase('LiveFeed/timeTwo');
 
@@ -207,4 +207,18 @@ function getFromDatabase(reference) // return the data stored at a given databas
     result = snapshot.val();
     });
     return result;
+}
+
+function useTestValues() // these values are only for testing or demo purposes :)
+{
+    nameOne = "Vincent";
+    nameTwo = "Tessa";
+    speedOne = 44;
+    speedTwo = 63;
+    colourOne = "Red";
+    colourTwo = "Blue";
+    timeOne = 14379;
+    timeTwo = timeOne;
+    distanceOne = 24;
+    distanceTwo = 78;
 }

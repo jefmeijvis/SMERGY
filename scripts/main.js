@@ -60,7 +60,6 @@ function draw() // main draw loop, all logic happens in this method
 			{
 				drawEnergyComparisson();
 			}
-
 			drawInfo();					  	// draw the top bar with name and logo, this always happens
 	}
 }
